@@ -5,20 +5,28 @@ defmodule Alixir.OSS.Utils do
   defdelegate gmt_now(), to: Alixir.Utils
 
   def make_signature(
-    verb: verb, content_md5: content_md5, content_type: content_type,
-    date_or_expires: date_or_expires, oss_headers: oss_headers, resource: resource
-  ) do
+        verb: verb,
+        content_md5: content_md5,
+        content_type: content_type,
+        date_or_expires: date_or_expires,
+        oss_headers: oss_headers,
+        resource: resource
+      ) do
     parameters =
       if Enum.empty?(oss_headers) do
         [verb, content_md5, content_type, date_or_expires, resource]
       else
         [
-          verb, content_md5, content_type, date_or_expires,
-          canonicalize_parameters(oss_headers), resource
+          verb,
+          content_md5,
+          content_type,
+          date_or_expires,
+          canonicalize_parameters(oss_headers),
+          resource
         ]
       end
 
-    parameters |> Enum.join("\n") |> Alixir.Utils.sign(Alixir.OSS.Env.oss_access_key_secret)
+    parameters |> Enum.join("\n") |> Alixir.Utils.sign(Alixir.OSS.Env.oss_access_key_secret())
   end
 
   def content_type(object_key) do
@@ -29,7 +37,7 @@ defmodule Alixir.OSS.Utils do
   end
 
   def expires_from(expires, %DateTime{} = time) do
-    expires + (time |> DateTime.to_unix)
+    expires + (time |> DateTime.to_unix())
   end
 
   def iso_8601_extended_time(%DateTime{} = time) do
