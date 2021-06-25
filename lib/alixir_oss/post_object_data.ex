@@ -67,7 +67,7 @@ defmodule Alixir.OSS.PostObjectData do
 
   defp encode_policy(policy) do
     policy
-    |> Poison.encode!()
+    |> Jason.encode!()
     |> Base.encode64()
   end
 end
