@@ -35,10 +35,14 @@ defmodule Alixir.OSS do
     true
   """
   @spec put_object(
-    %FileObject{},
-    list()
-  ) :: %Alixir.OSS.Operation{http_method: :put}
-  def put_object(%FileObject{bucket: bucket, object_key: object_key, object: object}, oss_headers \\ []) when is_list(oss_headers) do
+          %FileObject{},
+          list()
+        ) :: %Alixir.OSS.Operation{http_method: :put}
+  def put_object(
+        %FileObject{bucket: bucket, object_key: object_key, object: object},
+        oss_headers \\ []
+      )
+      when is_list(oss_headers) do
     %Operation{
       http_method: :put,
       bucket: bucket,
@@ -62,10 +66,11 @@ defmodule Alixir.OSS do
     true
   """
   @spec delete_object(
-    %FileObject{},
-    list()
-  ) :: %Alixir.OSS.Operation{http_method: :delete}
-  def delete_object(%FileObject{bucket: bucket, object_key: object_key}, oss_headers \\ []) when is_list(oss_headers) do
+          %FileObject{},
+          list()
+        ) :: %Alixir.OSS.Operation{http_method: :delete}
+  def delete_object(%FileObject{bucket: bucket, object_key: object_key}, oss_headers \\ [])
+      when is_list(oss_headers) do
     %Operation{
       http_method: :delete,
       bucket: bucket,
@@ -79,10 +84,10 @@ defmodule Alixir.OSS do
   frontend) to operate OSS
   """
   @spec presigned_url(
-    atom(),
-    %FileObject{},
-    Keyword.t()
-  ) :: String.t()
+          atom(),
+          %FileObject{},
+          Keyword.t()
+        ) :: String.t()
   defdelegate presigned_url(http_method, file_object, options \\ []), to: PresignedURL
 
   @doc """
@@ -90,18 +95,18 @@ defmodule Alixir.OSS do
   frontend) to operate OSS
   """
   @spec post_object_data(
-    %FileObject{},
-    Keyword.t()
-  ) :: Map.t()
+          %FileObject{},
+          Keyword.t()
+        ) :: Map.t()
   defdelegate post_object_data(file_object, policy_options \\ []), to: PostObjectData
 
   @doc """
   Head an object. Return true if the object exists, or false if it doesn't exist.
   """
   @spec head_object(
-    String.t(),
-    String.t()
-  ) :: boolean()
+          String.t(),
+          String.t()
+        ) :: boolean()
   def head_object(bucket, key) do
     %Operation{
       http_method: :head,

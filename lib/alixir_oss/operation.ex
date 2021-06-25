@@ -19,37 +19,48 @@ defmodule Alixir.OSS.Operation do
       ...> end
       true
     """
-    def perform(%Operation{http_method: http_method, bucket: bucket, object_key: object_key,
-      file: file, oss_headers: oss_headers} = operation)
-    do
+    def perform(
+          %Operation{
+            http_method: http_method,
+            bucket: bucket,
+            object_key: object_key,
+            file: file,
+            oss_headers: oss_headers
+          } = operation
+        ) do
       headers = Keyword.merge(oss_headers, build_common_headers(operation))
 
       %Alixir.Request{
         http_method: http_method,
-        url: ~s(#{bucket}.#{Env.oss_endpoint}/#{object_key}),
+        url: ~s(#{bucket}.#{Env.oss_endpoint()}/#{object_key}),
         headers: headers,
         body: file || ""
       }
     end
 
-    defp build_common_headers(%Operation{http_method: http_method, bucket: bucket, object_key: object_key,
-      oss_headers: oss_headers})
-    do
+    defp build_common_headers(%Operation{
+           http_method: http_method,
+           bucket: bucket,
+           object_key: object_key,
+           oss_headers: oss_headers
+         }) do
       content_type = Utils.content_type(object_key)
       gmt_now = Utils.gmt_now()
-      signature = Utils.make_signature(
-        verb: http_method |> to_string |> String.upcase,
-        content_md5: nil,
-        content_type: content_type,
-        date_or_expires: gmt_now,
-        oss_headers: oss_headers,
-        resource: "/#{bucket}/#{object_key}"
-      )
+
+      signature =
+        Utils.make_signature(
+          verb: http_method |> to_string |> String.upcase(),
+          content_md5: nil,
+          content_type: content_type,
+          date_or_expires: gmt_now,
+          oss_headers: oss_headers,
+          resource: "/#{bucket}/#{object_key}"
+        )
 
       [
-        "Date": gmt_now,
+        Date: gmt_now,
         "Content-Type": content_type,
-        "Authorization": "OSS #{Env.oss_access_key_id}:#{signature}"
+        Authorization: "OSS #{Env.oss_access_key_id()}:#{signature}"
       ]
     end
   end

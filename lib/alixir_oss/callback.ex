@@ -10,9 +10,9 @@ defmodule Alixir.OSS.Callback do
 
   def encode(%Callback{url: url, body: body, body_type: "application/json"}) when is_map(body) do
     %{
-      "callbackUrl": URI.encode(url),
-      "callbackBody": Poison.encode!(body),
-      "callbackBodyType": "application/json"
+      callbackUrl: URI.encode(url),
+      callbackBody: Poison.encode!(body),
+      callbackBodyType: "application/json"
     }
     |> Poison.encode!()
     |> Base.encode64()
