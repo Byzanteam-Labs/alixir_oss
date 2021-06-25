@@ -28,7 +28,8 @@ defmodule AlixirOss.MixProject do
     [
       {:alixir_core, "~> 0.2"},
       {:jason, "~> 1.2"},
-      {:mime, "~> 1.3.0"}
+      {:mime, "~> 1.3.0"},
+      {:ex_doc, ">= 0.24.2", only: :dev, runtime: false}
     ]
   end
 
