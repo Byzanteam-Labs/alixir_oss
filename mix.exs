@@ -20,7 +20,7 @@ defmodule AlixirOss.MixProject do
 
   def application do
     [
-      extra_applications: [:timex]
+      extra_applications: []
     ]
   end
 
@@ -28,7 +28,6 @@ defmodule AlixirOss.MixProject do
     [
       {:alixir_core, "~> 0.2"},
       {:httpoison, "~> 1.2.0"},
-      {:timex, "~> 3.3"},
       {:mime, "~> 1.3.0"},
       {:poison, "~> 3.1"},
       {:sweet_xml, "~> 0.6.5"},
