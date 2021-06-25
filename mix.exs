@@ -39,7 +39,7 @@ defmodule AlixirOss.MixProject do
     [
       name: :alixir_oss,
       files: ["lib", "mix.exs", "README*", "MIT-LICENSE"],
-      maintainers: ["CptBreeza"],
+      maintainers: ["CptBreeza", "fahchen"],
       licenses: ["MIT"],
       links: %{"GitHub" => @project_host}
     ]
