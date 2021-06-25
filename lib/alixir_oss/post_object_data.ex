@@ -34,15 +34,12 @@ defmodule Alixir.OSS.PostObjectData do
   end
 
   defp make_policy(policy_options, bucket, object_key, content_type) do
-    expiration_duration =
-      policy_options
-      |> Keyword.get(:expiration, @default_expiration)
-      |> Timex.Duration.from_seconds()
-
     expiration =
-      "GMT"
-      |> Timex.now()
-      |> Timex.add(expiration_duration)
+      DateTime.utc_now()
+      |> DateTime.add(
+        Keyword.get(policy_options, :expiration, @default_expiration),
+        :second
+      )
       |> Utils.iso_8601_extended_time()
 
     %{
