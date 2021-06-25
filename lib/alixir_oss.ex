@@ -97,7 +97,7 @@ defmodule Alixir.OSS do
   @spec post_object_data(
           %FileObject{},
           Keyword.t()
-        ) :: Map.t()
+        ) :: map()
   defdelegate post_object_data(file_object, policy_options \\ []), to: PostObjectData
 
   @doc """
