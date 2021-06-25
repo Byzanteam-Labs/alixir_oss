@@ -27,12 +27,7 @@ defmodule AlixirOss.MixProject do
   defp deps do
     [
       {:alixir_core, "~> 0.2"},
-      {:httpoison, "~> 1.2.0"},
-      {:mime, "~> 1.3.0"},
-      {:poison, "~> 3.1"},
-      {:sweet_xml, "~> 0.6.5"},
-      {:junit_formatter, ">= 0.0.0", only: :test},
-      {:ex_doc, "~> 0.18.0", only: :dev}
+      {:mime, "~> 1.3.0"}
     ]
   end
 
